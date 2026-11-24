@@ -161,7 +161,7 @@ app.get('/health', (req, res) => sendJson(res, { ok: true, addon: 'BharatFlix Ca
 app.get('/manifest.json', (req, res) => {
   const manifest = {
     id: 'in.bharatflix.nuvio.catalog',
-    version: '2.0.0',
+    version: '2.1.0',
     name: 'BharatFlix India, Anime & New Releases',
     description: 'Hindi OTT catalogs, Japanese-original anime, currently airing and completed anime, and latest Indian and worldwide movie releases. Catalog and metadata only; no streams are provided.',
     logo: 'https://raw.githubusercontent.com/yoyobaba1997-lang/bharatflix-catalog/main/assets/logo.png',
