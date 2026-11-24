@@ -128,6 +128,8 @@ function parseExtras(value) {
 
 function catalogDefinitions() {
   const catalogs = [];
+  // Curated home rows inspired by the supplied Castle-style reference:
+  // compact, clearly named discovery shelves; Nuvio controls the actual layout.
   for (const service of SERVICES) {
     catalogs.push({ type: 'movie', id: `hi-movies-${service.slug}`, name: `Hindi Movies • ${service.label}`, extra: [] });
     catalogs.push({ type: 'series', id: `hi-series-${service.slug}`, name: `Hindi Series • ${service.label}`, extra: [] });
@@ -135,10 +137,15 @@ function catalogDefinitions() {
   catalogs.push({ type: 'movie', id: 'hi-movies-all-india', name: 'Hindi Movies • Selected Indian OTT', extra: [] });
   catalogs.push({ type: 'series', id: 'hi-series-all-india', name: 'Hindi Series • Selected Indian OTT', extra: [] });
   catalogs.push({ type: 'movie', id: 'anime-movies', name: 'Anime Movies • Japanese Originals', extra: [] });
+  catalogs.push({ type: 'series', id: 'popular-anime', name: 'Popular Anime • Japanese Originals', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-series', name: 'Anime Series • Japanese Originals', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-on-air', name: 'Currently Airing Anime', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-latest-on-air', name: 'Latest On-Air Anime', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-completed', name: 'Completed Anime Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'trending-movies', name: 'Trending Movies • Worldwide', extra: [] });
+  catalogs.push({ type: 'movie', id: 'trending-indian-movies', name: 'Trending Indian Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'popular-bollywood-movies', name: 'Popular Bollywood Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'top-rated-indian-movies', name: 'Top Rated Indian Movies', extra: [] });
   catalogs.push({ type: 'movie', id: 'latest-indian-movies', name: 'Latest Indian Movies', extra: [] });
   catalogs.push({ type: 'movie', id: 'latest-worldwide-movies', name: 'Latest Movie Releases • Worldwide', extra: [] });
   catalogs.push({ type: 'movie', id: 'upcoming-indian-movies', name: 'Upcoming Indian Movies', extra: [] });
@@ -213,6 +220,22 @@ async function handleCatalog(req, res) {
     }
     const data = await tmdb(`/discover/${animeType}`, params);
     const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, animeType));
+    return sendJson(res, { metas }, 600);
+  }
+
+  const discoveryCatalogs = {
+    'trending-movies': { path: '/trending/movie/week', params: {} },
+    'trending-indian-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', sort_by: 'popularity.desc' } },
+    'popular-bollywood-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', with_original_language: 'hi', sort_by: 'popularity.desc' } },
+    'top-rated-indian-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', 'vote_count.gte': 50, sort_by: 'vote_average.desc' } },
+    'popular-anime': { path: '/discover/tv', params: { with_genres: '16', with_original_language: 'ja', sort_by: 'popularity.desc' } }
+  };
+  if (discoveryCatalogs[catalogId]) {
+    const config = discoveryCatalogs[catalogId];
+    const expectedType = catalogId === 'popular-anime' ? 'tv' : 'movie';
+    if (type !== expectedType) return sendJson(res, { metas: [] });
+    const data = await tmdb(config.path, { language: 'en-US', page, include_adult: 'false', ...config.params });
+    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, expectedType));
     return sendJson(res, { metas }, 600);
   }
 
