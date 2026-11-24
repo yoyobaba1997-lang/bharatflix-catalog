@@ -247,7 +247,7 @@ async function handleCatalog(req, res) {
   if (slug && !service) return sendJson(res, { metas: [] });
 
   const params = {
-    language: 'hi-IN',
+    language: 'en-US',
     region: 'IN',
     watch_region: 'IN',
     with_original_language: 'hi',
@@ -272,7 +272,7 @@ app.get('/meta/:type/:id.json', async (req, res, next) => {
     const type = requestedType === 'series' ? 'tv' : requestedType === 'movie' ? 'movie' : null;
     const id = tmdbId(req.params.id);
     if (!type || !id) return sendJson(res, { meta: null });
-    const data = await tmdb(`/${type}/${id}`, { language: 'hi-IN', append_to_response: 'credits,videos,external_ids,content_ratings,release_dates' });
+    const data = await tmdb(`/${type}/${id}`, { language: 'en-US', append_to_response: 'credits,videos,external_ids,content_ratings,release_dates' });
     const title = type === 'tv' ? data.name : data.title;
     const date = type === 'tv' ? data.first_air_date : data.release_date;
     const videos = Array.isArray(data.seasons) ? data.seasons : [];
