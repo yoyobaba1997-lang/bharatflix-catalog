@@ -139,10 +139,13 @@ function catalogDefinitions() {
   catalogs.push({ type: 'series', id: 'anime-on-air', name: 'Currently Airing Anime', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-latest-on-air', name: 'Latest On-Air Anime', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-completed', name: 'Completed Anime Series', extra: [] });
-  catalogs.push({ type: 'movie', id: 'latest-indian-movies', name: 'Latest Indian Movie Releases', extra: [] });
-  catalogs.push({ type: 'movie', id: 'latest-worldwide-movies', name: 'Latest Worldwide Movie Releases', extra: [] });
+  catalogs.push({ type: 'movie', id: 'latest-indian-movies', name: 'Latest Indian Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'latest-worldwide-movies', name: 'Latest Movie Releases • Worldwide', extra: [] });
   catalogs.push({ type: 'movie', id: 'upcoming-indian-movies', name: 'Upcoming Indian Movies', extra: [] });
   catalogs.push({ type: 'movie', id: 'upcoming-worldwide-movies', name: 'Upcoming Worldwide Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'bollywood-movies', name: 'Bollywood Movies • Hindi', extra: [] });
+  catalogs.push({ type: 'movie', id: 'latest-bollywood-releases', name: 'Latest Bollywood Releases', extra: [] });
+  catalogs.push({ type: 'movie', id: 'upcoming-bollywood-movies', name: 'Upcoming Bollywood Movies', extra: [] });
   return catalogs;
 }
 
@@ -214,10 +217,13 @@ async function handleCatalog(req, res) {
   }
 
   const releaseCatalogs = {
-    'latest-indian-movies': { country: 'IN', mode: 'latest' },
-    'latest-worldwide-movies': { country: null, mode: 'latest' },
-    'upcoming-indian-movies': { country: 'IN', mode: 'upcoming' },
-    'upcoming-worldwide-movies': { country: null, mode: 'upcoming' }
+    'latest-indian-movies': { country: 'IN', language: null, mode: 'latest' },
+    'latest-worldwide-movies': { country: null, language: null, mode: 'latest' },
+    'upcoming-indian-movies': { country: 'IN', language: null, mode: 'upcoming' },
+    'upcoming-worldwide-movies': { country: null, language: null, mode: 'upcoming' },
+    'bollywood-movies': { country: 'IN', language: 'hi', mode: 'popular' },
+    'latest-bollywood-releases': { country: 'IN', language: 'hi', mode: 'latest' },
+    'upcoming-bollywood-movies': { country: 'IN', language: 'hi', mode: 'upcoming' }
   };
   if (releaseCatalogs[catalogId]) {
     if (type !== 'movie') return sendJson(res, { metas: [] });
@@ -227,13 +233,17 @@ async function handleCatalog(req, res) {
     const recent = new Date(Date.now() - 180 * 86400000).toISOString().slice(0, 10);
     const params = {
       language: 'en-US',
-      sort_by: config.mode === 'latest' ? 'primary_release_date.desc' : 'primary_release_date.asc',
+      sort_by: config.mode === 'latest' ? 'primary_release_date.desc'
+        : config.mode === 'upcoming' ? 'primary_release_date.asc' : 'popularity.desc',
       page,
-      include_adult: 'false',
-      'primary_release_date.gte': config.mode === 'latest' ? recent : today,
-      'primary_release_date.lte': config.mode === 'latest' ? today : horizon
+      include_adult: 'false'
     };
+    if (config.mode === 'latest' || config.mode === 'upcoming') {
+      params['primary_release_date.gte'] = config.mode === 'latest' ? recent : today;
+      params['primary_release_date.lte'] = config.mode === 'latest' ? today : horizon;
+    }
     if (config.country) params.with_origin_country = config.country;
+    if (config.language) params.with_original_language = config.language;
     const data = await tmdb('/discover/movie', params);
     const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, 'movie'));
     return sendJson(res, { metas }, 900);
