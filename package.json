@@ -1,0 +1,10 @@
+{
+  "name": "bharatflix-nuvio-addon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "India-focused Hindi-language catalog addon for Nuvio using TMDB watch-provider availability metadata.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": { "express": "^4.21.2" }
+}

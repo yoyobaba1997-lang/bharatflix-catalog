@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bharatflix-catalog
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: TMDB_API_KEY
+        sync: false
