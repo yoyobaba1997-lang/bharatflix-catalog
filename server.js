@@ -134,6 +134,15 @@ function catalogDefinitions() {
   }
   catalogs.push({ type: 'movie', id: 'hi-movies-all-india', name: 'Hindi Movies • Selected Indian OTT', extra: [] });
   catalogs.push({ type: 'series', id: 'hi-series-all-india', name: 'Hindi Series • Selected Indian OTT', extra: [] });
+  catalogs.push({ type: 'movie', id: 'anime-movies', name: 'Anime Movies • Japanese Originals', extra: [] });
+  catalogs.push({ type: 'series', id: 'anime-series', name: 'Anime Series • Japanese Originals', extra: [] });
+  catalogs.push({ type: 'series', id: 'anime-on-air', name: 'Currently Airing Anime', extra: [] });
+  catalogs.push({ type: 'series', id: 'anime-latest-on-air', name: 'Latest On-Air Anime', extra: [] });
+  catalogs.push({ type: 'series', id: 'anime-completed', name: 'Completed Anime Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'latest-indian-movies', name: 'Latest Indian Movie Releases', extra: [] });
+  catalogs.push({ type: 'movie', id: 'latest-worldwide-movies', name: 'Latest Worldwide Movie Releases', extra: [] });
+  catalogs.push({ type: 'movie', id: 'upcoming-indian-movies', name: 'Upcoming Indian Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'upcoming-worldwide-movies', name: 'Upcoming Worldwide Movies', extra: [] });
   return catalogs;
 }
 
@@ -142,9 +151,9 @@ app.get('/health', (req, res) => sendJson(res, { ok: true, addon: 'BharatFlix Ca
 app.get('/manifest.json', (req, res) => {
   const manifest = {
     id: 'in.bharatflix.nuvio.catalog',
-    version: '1.0.0',
-    name: 'BharatFlix Hindi Catalog',
-    description: 'Hindi-language movies and series available in India on selected OTT services. Catalog and metadata only; no streams are provided.',
+    version: '2.0.0',
+    name: 'BharatFlix India, Anime & New Releases',
+    description: 'Hindi OTT catalogs, Japanese-original anime, currently airing and completed anime, and latest Indian and worldwide movie releases. Catalog and metadata only; no streams are provided.',
     logo: 'https://raw.githubusercontent.com/yoyobaba1997-lang/bharatflix-catalog/main/assets/logo.png',
     types: ['movie', 'series'],
     idPrefixes: ['tmdb:'],
@@ -174,6 +183,62 @@ async function handleCatalog(req, res) {
   const type = requestedType === 'series' ? 'tv' : requestedType === 'movie' ? 'movie' : null;
   if (!type) return sendJson(res, { metas: [] });
   const catalogId = req.params.catalogId;
+  const extras = parseExtras(req.params.extra || '');
+  const skip = Math.max(0, Number(extras.skip || 0) || 0);
+  const page = Math.floor(skip / PAGE_SIZE) + 1;
+
+  // TMDB genre 16 plus original language ja is the available anime proxy.
+  // TMDB does not expose reliable Hindi/English dub-track availability.
+  const animeCatalogs = ['anime-movies', 'anime-series', 'anime-on-air', 'anime-latest-on-air', 'anime-completed'];
+  if (animeCatalogs.includes(catalogId)) {
+    const animeType = catalogId === 'anime-movies' ? 'movie' : 'tv';
+    if (type !== animeType) return sendJson(res, { metas: [] });
+    const params = {
+      language: 'en-US',
+      with_genres: '16',
+      with_original_language: 'ja',
+      sort_by: catalogId === 'anime-latest-on-air' || catalogId === 'anime-completed'
+        ? 'first_air_date.desc' : 'popularity.desc',
+      page,
+      include_adult: 'false'
+    };
+    if (catalogId === 'anime-on-air' || catalogId === 'anime-latest-on-air') {
+      params.with_status = '0';
+      params['first_air_date.lte'] = new Date().toISOString().slice(0, 10);
+    } else if (catalogId === 'anime-completed') {
+      params.with_status = '3';
+    }
+    const data = await tmdb(`/discover/${animeType}`, params);
+    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, animeType));
+    return sendJson(res, { metas }, 600);
+  }
+
+  const releaseCatalogs = {
+    'latest-indian-movies': { country: 'IN', mode: 'latest' },
+    'latest-worldwide-movies': { country: null, mode: 'latest' },
+    'upcoming-indian-movies': { country: 'IN', mode: 'upcoming' },
+    'upcoming-worldwide-movies': { country: null, mode: 'upcoming' }
+  };
+  if (releaseCatalogs[catalogId]) {
+    if (type !== 'movie') return sendJson(res, { metas: [] });
+    const config = releaseCatalogs[catalogId];
+    const today = new Date().toISOString().slice(0, 10);
+    const horizon = new Date(Date.now() + 365 * 86400000).toISOString().slice(0, 10);
+    const recent = new Date(Date.now() - 180 * 86400000).toISOString().slice(0, 10);
+    const params = {
+      language: 'en-US',
+      sort_by: config.mode === 'latest' ? 'primary_release_date.desc' : 'primary_release_date.asc',
+      page,
+      include_adult: 'false',
+      'primary_release_date.gte': config.mode === 'latest' ? recent : today,
+      'primary_release_date.lte': config.mode === 'latest' ? today : horizon
+    };
+    if (config.country) params.with_origin_country = config.country;
+    const data = await tmdb('/discover/movie', params);
+    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, 'movie'));
+    return sendJson(res, { metas }, 900);
+  }
+
   const all = catalogId === (type === 'movie' ? 'hi-movies-all-india' : 'hi-series-all-india');
   const prefix = type === 'movie' ? 'hi-movies-' : 'hi-series-';
   if (!all && !catalogId.startsWith(prefix)) return sendJson(res, { metas: [] });
@@ -181,9 +246,6 @@ async function handleCatalog(req, res) {
   const service = slug ? slugToService(slug) : null;
   if (slug && !service) return sendJson(res, { metas: [] });
 
-  const extras = parseExtras(req.params.extra || '');
-  const skip = Math.max(0, Number(extras.skip || 0) || 0);
-  const page = Math.floor(skip / PAGE_SIZE) + 1;
   const params = {
     language: 'hi-IN',
     region: 'IN',
