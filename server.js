@@ -197,6 +197,73 @@ function catalogDefinitions() {
   catalogs.push({ type: 'movie', id: 'bollywood-movies', name: 'Bollywood Movies • Hindi', extra: [] });
   catalogs.push({ type: 'movie', id: 'latest-bollywood-releases', name: 'Latest Bollywood Releases', extra: [] });
   catalogs.push({ type: 'movie', id: 'upcoming-bollywood-movies', name: 'Upcoming Bollywood Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'new-on-streaming', name: 'New on Streaming • India', extra: [] });
+  catalogs.push({ type: 'movie', id: 'top-rated-worldwide-movies', name: 'Top Rated Movies • Worldwide', extra: [] });
+  catalogs.push({ type: 'series', id: 'trending-series', name: 'Trending Series • Worldwide', extra: [] });
+  catalogs.push({ type: 'series', id: 'popular-series', name: 'Popular Series • Worldwide', extra: [] });
+  catalogs.push({ type: 'series', id: 'top-rated-series', name: 'Top Rated Series • Worldwide', extra: [] });
+  catalogs.push({ type: 'series', id: 'latest-series', name: 'Latest Series Releases • Worldwide', extra: [] });
+  catalogs.push({ type: 'series', id: 'upcoming-series', name: 'Upcoming Series • Worldwide', extra: [] });
+  catalogs.push({ type: 'movie', id: 'family-movies', name: 'Family Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: 'kids-movies', name: 'Kids Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'family-series', name: 'Family Series', extra: [] });
+  catalogs.push({ type: 'series', id: 'kids-series', name: 'Kids Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'documentary-movies', name: 'Documentary Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'documentary-series', name: 'Documentary Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'animation-movies', name: 'Animation Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'animation-series', name: 'Animation Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'horror-movies', name: 'Horror Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'horror-series', name: 'Horror Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'thriller-movies', name: 'Thriller Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'thriller-series', name: 'Thriller Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'romance-movies', name: 'Romance Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'romance-series', name: 'Romance Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'action-movies', name: 'Action Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'action-series', name: 'Action Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'comedy-movies', name: 'Comedy Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'comedy-series', name: 'Comedy Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'drama-movies', name: 'Drama Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'drama-series', name: 'Drama Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'crime-movies', name: 'Crime Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'crime-series', name: 'Crime Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'sci-fi-movies', name: 'Sci-Fi Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'sci-fi-series', name: 'Sci-Fi Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'fantasy-movies', name: 'Fantasy Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'fantasy-series', name: 'Fantasy Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'mystery-movies', name: 'Mystery Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'mystery-series', name: 'Mystery Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'war-movies', name: 'War Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'war-series', name: 'War Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'western-movies', name: 'Western Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'western-series', name: 'Western Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'sports-movies', name: 'Sports Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'sports-series', name: 'Sports Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'music-movies', name: 'Music Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'music-series', name: 'Music Series', extra: [] });
+  catalogs.push({ type: 'series', id: 'reality-series', name: 'Reality Series', extra: [] });
+  catalogs.push({ type: 'series', id: 'talk-series', name: 'Talk Shows', extra: [] });
+  catalogs.push({ type: 'series', id: 'soap-series', name: 'Soap & Drama Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'classic-movies', name: 'Classic Movies', extra: [] });
+  catalogs.push({ type: 'movie', id: '90s-movies', name: 'Movies from the 1990s', extra: [] });
+  catalogs.push({ type: 'movie', id: '2000s-movies', name: 'Movies from the 2000s', extra: [] });
+  catalogs.push({ type: 'movie', id: '2010s-movies', name: 'Movies from the 2010s', extra: [] });
+  catalogs.push({ type: 'movie', id: '2020s-movies', name: 'Movies from the 2020s', extra: [] });
+  catalogs.push({ type: 'series', id: 'classic-series', name: 'Classic Series', extra: [] });
+  // Each scheduled language receives Popular, Latest and Upcoming movie shelves, plus Popular and Latest series.
+  const languageCodes = ['as','bn','brx','doi','gu','hi','kn','ks','kok','mai','ml','mni','mr','ne','or','pa','sa','sat','sd','ta','te','ur'];
+  const languageNames = ['Assamese','Bengali','Bodo','Dogri','Gujarati','Hindi','Kannada','Kashmiri','Konkani','Maithili','Malayalam','Manipuri (Meitei)','Marathi','Nepali','Odia','Punjabi','Sanskrit','Santali','Sindhi','Tamil','Telugu','Urdu'];
+  for (let i = 0; i < languageCodes.length; i++) {
+    const code = languageCodes[i], label = languageNames[i];
+    catalogs.push({ type: 'movie', id: `lang-${code}-popular-movies`, name: `Popular ${label} Movies`, extra: [] });
+    catalogs.push({ type: 'movie', id: `lang-${code}-latest-movies`, name: `Latest ${label} Movies`, extra: [] });
+    catalogs.push({ type: 'movie', id: `lang-${code}-upcoming-movies`, name: `Upcoming ${label} Movies`, extra: [] });
+    catalogs.push({ type: 'series', id: `lang-${code}-popular-series`, name: `Popular ${label} Series`, extra: [] });
+    catalogs.push({ type: 'series', id: `lang-${code}-latest-series`, name: `Latest ${label} Series`, extra: [] });
+    for (const service of SERVICES) {
+      catalogs.push({ type: 'movie', id: `stream-${service.slug}-${code}-movies`, name: `${service.label} • ${label} Movies`, extra: [] });
+      catalogs.push({ type: 'series', id: `stream-${service.slug}-${code}-series`, name: `${service.label} • ${label} Series`, extra: [] });
+    }
+  }
   return catalogs;
 }
 
@@ -205,9 +272,9 @@ app.get('/health', (req, res) => sendJson(res, { ok: true, addon: 'BharatFlix Ca
 app.get('/manifest.json', (req, res) => {
   const manifest = {
     id: 'in.bharatflix.nuvio.catalog',
-    version: '2.1.0',
-    name: 'BharatFlix India, Anime & All Indian Languages',
-    description: 'Hindi OTT catalogs, all 22 scheduled Indian languages, Japanese-original anime, currently airing and completed anime, and latest Indian and worldwide movie releases. Catalog and metadata only; no streams are provided.',
+    version: '2.2.0',
+    name: 'BharatFlix • Complete Streaming Discovery',
+    description: 'Streaming-style discovery catalogs for India and worldwide: OTT providers, all 22 scheduled Indian languages, genres, trending, popular, top-rated, latest, upcoming, family, kids, documentaries, anime and more. Catalog and metadata only; no streams are provided.',
     logo: 'https://raw.githubusercontent.com/yoyobaba1997-lang/bharatflix-catalog/main/assets/logo.png',
     types: ['movie', 'series'],
     idPrefixes: ['tmdb:'],
@@ -241,24 +308,48 @@ async function handleCatalog(req, res) {
   const skip = Math.max(0, Number(extras.skip || 0) || 0);
   const page = Math.floor(skip / PAGE_SIZE) + 1;
 
-  const languageCatalogMatch = catalogId.match(/^lang-([a-z]+)-(movies|series)$/);
+  const languageCatalogMatch = catalogId.match(/^lang-([a-z]+)-(movies|series|popular-movies|latest-movies|upcoming-movies|popular-series|latest-series)$/);
   if (languageCatalogMatch) {
-    const languageCodes = {"as":"as","bn":"bn","brx":"brx","doi":"doi","gu":"gu","hi":"hi","kn":"kn","ks":"ks","kok":"kok","mai":"mai","ml":"ml","mni":"mni","mr":"mr","ne":"ne","or":"or","pa":"pa","sa":"sa","sat":"sat","sd":"sd","ta":"ta","te":"te","ur":"ur"};
-    const originalLanguage = languageCodes[languageCatalogMatch[1]];
-    const expectedType = languageCatalogMatch[2] === 'series' ? 'tv' : 'movie';
+    const languageCodes = {as:'as',bn:'bn',brx:'brx',doi:'doi',gu:'gu',hi:'hi',kn:'kn',ks:'ks',kok:'kok',mai:'mai',ml:'ml',mni:'mni',mr:'mr',ne:'ne',or:'or',pa:'pa',sa:'sa',sat:'sat',sd:'sd',ta:'ta',te:'te',ur:'ur'};
+    const lang = languageCatalogMatch[1];
+    const suffix = languageCatalogMatch[2];
+    const originalLanguage = languageCodes[lang];
+    const expectedType = suffix.endsWith('series') || suffix === 'series' ? 'tv' : 'movie';
     if (!originalLanguage || type !== expectedType) return sendJson(res, { metas: [] });
-    const data = await tmdb(`/discover/${type}`, {
-      language: 'en-US',
-      region: 'IN',
-      with_original_language: originalLanguage,
-      sort_by: 'popularity.desc',
-      page,
-      include_adult: 'false'
-    });
-    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, type));
-    return sendJson(res, { metas }, 900);
+    const mode = suffix.includes('latest') ? 'latest' : suffix.includes('upcoming') ? 'upcoming' : 'popular';
+    const today = new Date().toISOString().slice(0,10);
+    const horizon = new Date(Date.now()+365*86400000).toISOString().slice(0,10);
+    const recent = new Date(Date.now()-180*86400000).toISOString().slice(0,10);
+    const dateKey = expectedType === 'tv' ? 'first_air_date' : 'primary_release_date';
+    const params = { language:'en-US', with_original_language:originalLanguage, sort_by:mode==='latest' ? `${dateKey}.desc` : mode==='upcoming' ? `${dateKey}.asc` : 'popularity.desc', page, include_adult:'false' };
+    if (mode === 'latest') { params[`${dateKey}.gte`] = recent; params[`${dateKey}.lte`] = today; }
+    if (mode === 'upcoming' && expectedType === 'movie') { params[`${dateKey}.gte`] = today; params[`${dateKey}.lte`] = horizon; }
+    if (mode === 'upcoming' && expectedType === 'tv') { params[`${dateKey}.gte`] = today; params[`${dateKey}.lte`] = horizon; }
+    const data = await tmdb(`/discover/${type}`, params);
+    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row,type));
+    return sendJson(res,{metas},900);
   }
-
+  const streamLangMatch = catalogId.match(/^stream-([a-z0-9-]+)-([a-z]+)-(movies|series)$/);
+  if (streamLangMatch) {
+    const service = slugToService(streamLangMatch[1]);
+    const lang = streamLangMatch[2];
+    const expectedType = streamLangMatch[3] === 'series' ? 'tv' : 'movie';
+    const languageCodes = {as:'as',bn:'bn',brx:'brx',doi:'doi',gu:'gu',hi:'hi',kn:'kn',ks:'ks',kok:'kok',mai:'mai',ml:'ml',mni:'mni',mr:'mr',ne:'ne',or:'or',pa:'pa',sa:'sa',sat:'sat',sd:'sd',ta:'ta',te:'te',ur:'ur'};
+    if (!service || !languageCodes[lang] || type !== expectedType) return sendJson(res,{metas:[]});
+    const ids=(await getProviderIds(type))[service.slug]||[];
+    if(!ids.length) return sendJson(res,{metas:[]},1800);
+    const data=await tmdb(`/discover/${type}`,{language:'en-US',region:'IN',watch_region:'IN',with_watch_providers:ids.join('|'),with_original_language:languageCodes[lang],sort_by:'popularity.desc',page,include_adult:'false'});
+    return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,type))},900);
+  }
+  const genreCatalogMatch = catalogId.match(/^([a-z0-9-]+)-(movies|series)$/);
+  const genreMap = {action:28,comedy:35,drama:18,crime:80,documentary:99,animation:16,family:10751,horror:27,thriller:53,romance:10749,'sci-fi':878,fantasy:14,mystery:9648,war:10752,western:37,sports:10770,music:10402,kids:10751};
+  const genreName = genreCatalogMatch && genreCatalogMatch[1];
+  if (genreCatalogMatch && genreMap[genreName] && (catalogId.endsWith('-movies') || catalogId.endsWith('-series'))) {
+    const expectedType=genreCatalogMatch[2]==='series'?'tv':'movie';
+    if(type!==expectedType) return sendJson(res,{metas:[]});
+    const data=await tmdb(`/discover/${type}`,{language:'en-US',with_genres:String(genreMap[genreName]),sort_by:'popularity.desc',page,include_adult:'false'});
+    return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,type))},900);
+  }
   // TMDB genre 16 plus original language ja is the available anime proxy.
   // TMDB does not expose reliable Hindi/English dub-track availability.
   const animeCatalogs = ['anime-movies', 'anime-series', 'anime-on-air', 'anime-latest-on-air', 'anime-completed'];
@@ -290,11 +381,54 @@ async function handleCatalog(req, res) {
     'trending-indian-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', sort_by: 'popularity.desc' } },
     'popular-bollywood-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', with_original_language: 'hi', sort_by: 'popularity.desc' } },
     'top-rated-indian-movies': { path: '/discover/movie', params: { with_origin_country: 'IN', 'vote_count.gte': 50, sort_by: 'vote_average.desc' } },
-    'popular-anime': { path: '/discover/tv', params: { with_genres: '16', with_original_language: 'ja', sort_by: 'popularity.desc' } }
+    'popular-anime': { path: '/discover/tv', params: { with_genres: '16', with_original_language: 'ja', sort_by: 'popularity.desc' } },
+    'top-rated-worldwide-movies': { path: '/discover/movie', params: { 'vote_count.gte': 100, sort_by: 'vote_average.desc' } },
+    'trending-series': { path: '/trending/tv/week', params: {} },
+    'popular-series': { path: '/discover/tv', params: { sort_by: 'popularity.desc' } },
+    'top-rated-series': { path: '/discover/tv', params: { 'vote_count.gte': 100, sort_by: 'vote_average.desc' } },
+    'family-movies': { path: '/discover/movie', params: { with_genres: '10751', sort_by: 'popularity.desc' } },
+    'kids-movies': { path: '/discover/movie', params: { with_genres: '10751', sort_by: 'popularity.desc' } },
+    'family-series': { path: '/discover/tv', params: { with_genres: '10751', sort_by: 'popularity.desc' } },
+    'kids-series': { path: '/discover/tv', params: { with_genres: '10751', sort_by: 'popularity.desc' } },
+    'documentary-movies': { path: '/discover/movie', params: { with_genres: '99', sort_by: 'popularity.desc' } },
+    'documentary-series': { path: '/discover/tv', params: { with_genres: '99', sort_by: 'popularity.desc' } },
+    'animation-movies': { path: '/discover/movie', params: { with_genres: '16', sort_by: 'popularity.desc' } },
+    'animation-series': { path: '/discover/tv', params: { with_genres: '16', sort_by: 'popularity.desc' } },
+    'horror-movies': { path: '/discover/movie', params: { with_genres: '27', sort_by: 'popularity.desc' } },
+    'horror-series': { path: '/discover/tv', params: { with_genres: '27', sort_by: 'popularity.desc' } },
+    'thriller-movies': { path: '/discover/movie', params: { with_genres: '53', sort_by: 'popularity.desc' } },
+    'thriller-series': { path: '/discover/tv', params: { with_genres: '53', sort_by: 'popularity.desc' } },
+    'romance-movies': { path: '/discover/movie', params: { with_genres: '10749', sort_by: 'popularity.desc' } },
+    'romance-series': { path: '/discover/tv', params: { with_genres: '10749', sort_by: 'popularity.desc' } },
+    'action-movies': { path: '/discover/movie', params: { with_genres: '28', sort_by: 'popularity.desc' } },
+    'action-series': { path: '/discover/tv', params: { with_genres: '10759', sort_by: 'popularity.desc' } },
+    'comedy-movies': { path: '/discover/movie', params: { with_genres: '35', sort_by: 'popularity.desc' } },
+    'comedy-series': { path: '/discover/tv', params: { with_genres: '35', sort_by: 'popularity.desc' } },
+    'drama-movies': { path: '/discover/movie', params: { with_genres: '18', sort_by: 'popularity.desc' } },
+    'drama-series': { path: '/discover/tv', params: { with_genres: '18', sort_by: 'popularity.desc' } },
+    'crime-movies': { path: '/discover/movie', params: { with_genres: '80', sort_by: 'popularity.desc' } },
+    'crime-series': { path: '/discover/tv', params: { with_genres: '80', sort_by: 'popularity.desc' } },
+    'sci-fi-movies': { path: '/discover/movie', params: { with_genres: '878', sort_by: 'popularity.desc' } },
+    'sci-fi-series': { path: '/discover/tv', params: { with_genres: '10765', sort_by: 'popularity.desc' } },
+    'fantasy-movies': { path: '/discover/movie', params: { with_genres: '14', sort_by: 'popularity.desc' } },
+    'fantasy-series': { path: '/discover/tv', params: { with_genres: '10765', sort_by: 'popularity.desc' } },
+    'mystery-movies': { path: '/discover/movie', params: { with_genres: '9648', sort_by: 'popularity.desc' } },
+    'mystery-series': { path: '/discover/tv', params: { with_genres: '9648', sort_by: 'popularity.desc' } },
+    'war-movies': { path: '/discover/movie', params: { with_genres: '10752', sort_by: 'popularity.desc' } },
+    'war-series': { path: '/discover/tv', params: { with_genres: '10752', sort_by: 'popularity.desc' } },
+    'western-movies': { path: '/discover/movie', params: { with_genres: '37', sort_by: 'popularity.desc' } },
+    'western-series': { path: '/discover/tv', params: { with_genres: '37', sort_by: 'popularity.desc' } },
+    'sports-movies': { path: '/discover/movie', params: { with_genres: '10770', sort_by: 'popularity.desc' } },
+    'sports-series': { path: '/discover/tv', params: { with_genres: '10770', sort_by: 'popularity.desc' } },
+    'music-movies': { path: '/discover/movie', params: { with_genres: '10402', sort_by: 'popularity.desc' } },
+    'music-series': { path: '/discover/tv', params: { with_genres: '10402', sort_by: 'popularity.desc' } },
+    'reality-series': { path: '/discover/tv', params: { with_genres: '10764', sort_by: 'popularity.desc' } },
+    'talk-series': { path: '/discover/tv', params: { with_genres: '10767', sort_by: 'popularity.desc' } },
+    'soap-series': { path: '/discover/tv', params: { with_genres: '10766', sort_by: 'popularity.desc' } }
   };
   if (discoveryCatalogs[catalogId]) {
     const config = discoveryCatalogs[catalogId];
-    const expectedType = catalogId === 'popular-anime' ? 'tv' : 'movie';
+    const expectedType = (catalogId === 'popular-anime' || catalogId.endsWith('-series')) ? 'tv' : 'movie';
     if (type !== expectedType) return sendJson(res, { metas: [] });
     const data = await tmdb(config.path, { language: 'en-US', page, include_adult: 'false', ...config.params });
     const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, expectedType));
