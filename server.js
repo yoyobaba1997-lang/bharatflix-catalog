@@ -424,7 +424,9 @@ async function handleCatalog(req, res) {
     'music-series': { path: '/discover/tv', params: { with_genres: '10402', sort_by: 'popularity.desc' } },
     'reality-series': { path: '/discover/tv', params: { with_genres: '10764', sort_by: 'popularity.desc' } },
     'talk-series': { path: '/discover/tv', params: { with_genres: '10767', sort_by: 'popularity.desc' } },
-    'soap-series': { path: '/discover/tv', params: { with_genres: '10766', sort_by: 'popularity.desc' } }
+    'soap-series': { path: '/discover/tv', params: { with_genres: '10766', sort_by: 'popularity.desc' } },
+'latest-series': { path: '/discover/tv', params: { sort_by: 'first_air_date.desc' } },
+    'upcoming-series': { path: '/discover/tv', params: { sort_by: 'first_air_date.asc', 'first_air_date.gte': new Date().toISOString().slice(0,10) } },
   };
   if (discoveryCatalogs[catalogId]) {
     const config = discoveryCatalogs[catalogId];
@@ -435,6 +437,31 @@ async function handleCatalog(req, res) {
     return sendJson(res, { metas }, 600);
   }
 
+  const yearCatalogMatch = catalogId.match(/^(classic|90s|2000s|2010s|2020s)-(movies|series)$/);
+  if (yearCatalogMatch) {
+    const expectedType = yearCatalogMatch[2] === 'series' ? 'tv' : 'movie';
+    if (type !== expectedType) return sendJson(res,{metas:[]});
+    const rangeMap = {
+      classic: {gte:'1900-01-01',lte:'1989-12-31'},
+      '90s': {gte:'1990-01-01',lte:'1999-12-31'},
+      '2000s': {gte:'2000-01-01',lte:'2009-12-31'},
+      '2010s': {gte:'2010-01-01',lte:'2019-12-31'},
+      '2020s': {gte:'2020-01-01',lte:'2029-12-31'}
+    };
+    const dateField=expectedType==='tv'?'first_air_date':'primary_release_date';
+    const range=rangeMap[yearCatalogMatch[1]];
+    const data=await tmdb(`/discover/${type}`,{language:'en-US',`${dateField}.gte`:range.gte,`${dateField}.lte`:range.lte,sort_by:'popularity.desc',page,include_adult:'false'});
+    return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,type))},900);
+  }
+  if (catalogId === 'new-on-streaming') {
+    if (type !== 'movie') return sendJson(res,{metas:[]});
+    const providerIds = await getProviderIds(type);
+    const allIds=[...new Set(SERVICES.flatMap(service=>providerIds[service.slug]||[]))];
+    if(!allIds.length) return sendJson(res,{metas:[]},1800);
+    const recent=new Date(Date.now()-90*86400000).toISOString().slice(0,10);
+    const data=await tmdb('/discover/movie',{language:'en-US',region:'IN',watch_region:'IN',with_watch_providers:allIds.join('|'),primary_release_date_gte:recent,sort_by:'primary_release_date.desc',page,include_adult:'false'});
+    return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,'movie'))},900);
+  }
   const releaseCatalogs = {
     'latest-indian-movies': { country: 'IN', language: null, mode: 'latest' },
     'latest-worldwide-movies': { country: null, language: null, mode: 'latest' },
