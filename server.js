@@ -136,6 +136,50 @@ function catalogDefinitions() {
   }
   catalogs.push({ type: 'movie', id: 'hi-movies-all-india', name: 'Hindi Movies • Selected Indian OTT', extra: [] });
   catalogs.push({ type: 'series', id: 'hi-series-all-india', name: 'Hindi Series • Selected Indian OTT', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-as-movies', name: 'Assamese Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-as-series', name: 'Assamese Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-bn-movies', name: 'Bengali Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-bn-series', name: 'Bengali Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-brx-movies', name: 'Bodo Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-brx-series', name: 'Bodo Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-doi-movies', name: 'Dogri Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-doi-series', name: 'Dogri Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-gu-movies', name: 'Gujarati Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-gu-series', name: 'Gujarati Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-hi-movies', name: 'Hindi Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-hi-series', name: 'Hindi Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-kn-movies', name: 'Kannada Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-kn-series', name: 'Kannada Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-ks-movies', name: 'Kashmiri Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-ks-series', name: 'Kashmiri Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-kok-movies', name: 'Konkani Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-kok-series', name: 'Konkani Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-mai-movies', name: 'Maithili Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-mai-series', name: 'Maithili Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-ml-movies', name: 'Malayalam Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-ml-series', name: 'Malayalam Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-mni-movies', name: 'Manipuri (Meitei) Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-mni-series', name: 'Manipuri (Meitei) Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-mr-movies', name: 'Marathi Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-mr-series', name: 'Marathi Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-ne-movies', name: 'Nepali Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-ne-series', name: 'Nepali Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-or-movies', name: 'Odia Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-or-series', name: 'Odia Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-pa-movies', name: 'Punjabi Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-pa-series', name: 'Punjabi Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-sa-movies', name: 'Sanskrit Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-sa-series', name: 'Sanskrit Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-sat-movies', name: 'Santali Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-sat-series', name: 'Santali Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-sd-movies', name: 'Sindhi Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-sd-series', name: 'Sindhi Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-ta-movies', name: 'Tamil Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-ta-series', name: 'Tamil Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-te-movies', name: 'Telugu Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-te-series', name: 'Telugu Series', extra: [] });
+  catalogs.push({ type: 'movie', id: 'lang-ur-movies', name: 'Urdu Movies', extra: [] });
+  catalogs.push({ type: 'series', id: 'lang-ur-series', name: 'Urdu Series', extra: [] });
   catalogs.push({ type: 'movie', id: 'anime-movies', name: 'Anime Movies • Japanese Originals', extra: [] });
   catalogs.push({ type: 'series', id: 'popular-anime', name: 'Popular Anime • Japanese Originals', extra: [] });
   catalogs.push({ type: 'series', id: 'anime-series', name: 'Anime Series • Japanese Originals', extra: [] });
@@ -162,8 +206,8 @@ app.get('/manifest.json', (req, res) => {
   const manifest = {
     id: 'in.bharatflix.nuvio.catalog',
     version: '2.1.0',
-    name: 'BharatFlix India, Anime & New Releases',
-    description: 'Hindi OTT catalogs, Japanese-original anime, currently airing and completed anime, and latest Indian and worldwide movie releases. Catalog and metadata only; no streams are provided.',
+    name: 'BharatFlix India, Anime & All Indian Languages',
+    description: 'Hindi OTT catalogs, all 22 scheduled Indian languages, Japanese-original anime, currently airing and completed anime, and latest Indian and worldwide movie releases. Catalog and metadata only; no streams are provided.',
     logo: 'https://raw.githubusercontent.com/yoyobaba1997-lang/bharatflix-catalog/main/assets/logo.png',
     types: ['movie', 'series'],
     idPrefixes: ['tmdb:'],
@@ -196,6 +240,24 @@ async function handleCatalog(req, res) {
   const extras = parseExtras(req.params.extra || '');
   const skip = Math.max(0, Number(extras.skip || 0) || 0);
   const page = Math.floor(skip / PAGE_SIZE) + 1;
+
+  const languageCatalogMatch = catalogId.match(/^lang-([a-z]+)-(movies|series)$/);
+  if (languageCatalogMatch) {
+    const languageCodes = {"as":"as","bn":"bn","brx":"brx","doi":"doi","gu":"gu","hi":"hi","kn":"kn","ks":"ks","kok":"kok","mai":"mai","ml":"ml","mni":"mni","mr":"mr","ne":"ne","or":"or","pa":"pa","sa":"sa","sat":"sat","sd":"sd","ta":"ta","te":"te","ur":"ur"};
+    const originalLanguage = languageCodes[languageCatalogMatch[1]];
+    const expectedType = languageCatalogMatch[2] === 'series' ? 'tv' : 'movie';
+    if (!originalLanguage || type !== expectedType) return sendJson(res, { metas: [] });
+    const data = await tmdb(`/discover/${type}`, {
+      language: 'en-US',
+      region: 'IN',
+      with_original_language: originalLanguage,
+      sort_by: 'popularity.desc',
+      page,
+      include_adult: 'false'
+    });
+    const metas = (Array.isArray(data.results) ? data.results : []).map(row => catalogItem(row, type));
+    return sendJson(res, { metas }, 900);
+  }
 
   // TMDB genre 16 plus original language ja is the available anime proxy.
   // TMDB does not expose reliable Hindi/English dub-track availability.
