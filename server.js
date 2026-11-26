@@ -459,7 +459,7 @@ async function handleCatalog(req, res) {
     const allIds=[...new Set(SERVICES.flatMap(service=>providerIds[service.slug]||[]))];
     if(!allIds.length) return sendJson(res,{metas:[]},1800);
     const recent=new Date(Date.now()-90*86400000).toISOString().slice(0,10);
-    const data=await tmdb('/discover/movie',{language:'en-US',region:'IN',watch_region:'IN',with_watch_providers:allIds.join('|'),primary_release_date_gte:recent,sort_by:'primary_release_date.desc',page,include_adult:'false'});
+    const data=await tmdb('/discover/movie',{language:'en-US',region:'IN',watch_region:'IN',with_watch_providers:allIds.join('|'),'primary_release_date.gte':recent,sort_by:'primary_release_date.desc',page,include_adult:'false'});
     return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,'movie'))},900);
   }
   const releaseCatalogs = {
