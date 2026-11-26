@@ -450,7 +450,7 @@ async function handleCatalog(req, res) {
     };
     const dateField=expectedType==='tv'?'first_air_date':'primary_release_date';
     const range=rangeMap[yearCatalogMatch[1]];
-    const data=await tmdb(`/discover/${type}`,{language:'en-US',`${dateField}.gte`:range.gte,`${dateField}.lte`:range.lte,sort_by:'popularity.desc',page,include_adult:'false'});
+    const data=await tmdb(`/discover/${type}`,{language:'en-US',[`${dateField}.gte`]:range.gte,[`${dateField}.lte`]:range.lte,sort_by:'popularity.desc',page,include_adult:'false'});
     return sendJson(res,{metas:(Array.isArray(data.results)?data.results:[]).map(row=>catalogItem(row,type))},900);
   }
   if (catalogId === 'new-on-streaming') {
